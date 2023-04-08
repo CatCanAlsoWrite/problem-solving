@@ -1,25 +1,30 @@
 //1.𝙥𝙖𝙧𝙚𝙣𝙩 𝙩𝙤 𝙘𝙝𝙞𝙡𝙙:  
  //1st.child code (in 'ChildComponent.js'):
- const ChildComponent = (props) => {
-	 return(
-		 <>
-			 {props.property}
-		 </>
-	 ); 
- }
- export default ChildComponent;
-
- //2nd.parent code (in 'ParentComponent.js'):
-import ChildComponent from './ChildComponent.js';
-const ParentComponent = () => {
-	const data={property: 'value'};
+const ChildComponent = (props) => {
 	return(
 		<>
-			<ChildComponent property={data.property} />
+			{props.key1}
 		</>
-	);
+	); 
 }
-export default ParentComponent;
+export default ChildComponent
+
+ //2nd.parent code (in 'ParentComponent.js'):
+import ChildComponent from './ChildComponent.js'
+
+const ParentComponent = () => {
+	const data = {
+		key1: value1,
+		key2: value2,
+	}
+
+	return(
+		<>
+			<ChildComponent property={data.key1} />
+		</>
+	)
+}
+export default ParentComponent
 
 
 //2.𝙘𝙝𝙞𝙡𝙙 𝙩𝙤 𝙥𝙖𝙧𝙚𝙣𝙩:  
@@ -29,9 +34,9 @@ import React, { useState, useContext } from 'react'
 const initialData = {
  key1: value1,
  key2: value2,
-};
+}
 
-const ChildrenContext= React.createContext();
+const ChildrenContext= React.createContext()
 
 const ChildrenProvider = ({children}) => {
 	const [data, setData]= useState(initialData)
@@ -46,10 +51,10 @@ const useChildrenContext=() =>{
 	return useContext(ChildrenContext);
 }
 
-export { initialData, ChildrenProvider, useChildrenContext };
+export { initialData, ChildrenProvider, useChildrenContext }
 
  //2nd.in 'index.js'
-import { ChildrenProvider } from './ChildComponent.js';
+import { ChildrenProvider } from './ChildComponent.js'
 
 root.render(
   <React.StrictMode>
@@ -60,7 +65,7 @@ root.render(
 )
 
  //3rd.parent code (in 'ParentComponent.js'):
-import { useChildrenContext } from './ChildrenContext.js';
+import { useChildrenContext } from './ChildrenContext.js'
 
 const ParentComponent = () => {
  const { key1, key2 } = useChildrenContext()
