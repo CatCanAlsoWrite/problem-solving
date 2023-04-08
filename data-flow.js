@@ -1,3 +1,4 @@
+
 //1.𝙥𝙖𝙧𝙚𝙣𝙩 𝙩𝙤 𝙘𝙝𝙞𝙡𝙙:  
  //1st.child code (in 'ChildComponent.js'):
 const ChildComponent = (props) => {
@@ -20,7 +21,7 @@ const ParentComponent = () => {
 
 	return(
 		<>
-			<ChildComponent property={data.key1} />
+			<ChildComponent value={{...data}} />
 		</>
 	)
 }
