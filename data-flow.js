@@ -1,6 +1,6 @@
 //1.𝙥𝙖𝙧𝙚𝙣𝙩 𝙩𝙤 𝙘𝙝𝙞𝙡𝙙:  
- //1st.child code:
- function ChildComponent(props){
+ //1st.child code (in 'ChildComponent.js'):
+ const ChildComponent = (props) => {
 	 return(
 		 <>
 			 {props.property}
@@ -9,9 +9,9 @@
  }
  export default ChildComponent;
 
- //2nd.parent code:
+ //2nd.parent code (in 'ParentComponent.js'):
 import ChildComponent from './ChildComponent.js';
-function ParentComponent(){
+const ParentComponent = () => {
 	const data={property: 'value'};
 	return(
 		<>
@@ -59,7 +59,7 @@ root.render(
   </React.StrictMode>
 )
 
- //3rd.parent code:
+ //3rd.parent code (in 'ParentComponent.js'):
 import { useChildrenContext } from './ChildrenContext.js';
 
 const ParentComponent = () => {
