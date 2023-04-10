@@ -28,7 +28,7 @@ const ParentComponent = () => {
 export default ParentComponent
 
 
-//2.𝙘𝙝𝙞𝙡𝙙 𝙩𝙤 𝙥𝙖𝙧𝙚𝙣𝙩:  
+//2.𝙘𝙝𝙞𝙡𝙙 𝙩𝙤 𝙥𝙖𝙧𝙚𝙣𝙩 (use 'useContext' to pass data):  
  //1st.child code (in 'ChildComponent.js'):
 import React, { useState, useContext } from 'react'
 
@@ -69,7 +69,8 @@ root.render(
 import { useChildrenContext } from './ChildrenContext.js'
 
 const ParentComponent = () => {
- const { key1, key2 } = useChildrenContext()
+ 
+ const { key1, key2 } = useChildrenContext() 
 
  return(
 		<h1>
@@ -80,3 +81,73 @@ const ParentComponent = () => {
 
 export default ParentComponent;
 
+//3.𝙘𝙝𝙞𝙡𝙙 𝙩𝙤 𝙥𝙖𝙧𝙚𝙣𝙩 (use 'useReducer' to change and pass part of data):  
+	//1st.+'reducer.js'
+const reducer = (data, action) => {
+	if (action.type=== 'ACTION_01') => {
+		return {
+			...data,
+			key1: value3,
+		}
+	}
+	throw new Error(`Not found action ${action.type}`)
+}
+export default reducer
+
+ //2nd.child code (in 'ChildComponent.js'):
+import React, { useState, useContext, useReducer } from 'react'
+import reducer from './reducer.js'
+
+const initialData = {
+ key1: value1,
+ key2: value2,
+}
+
+const ChildrenContext= React.createContext()
+
+const ChildrenProvider = ({children}) => {
+	// const [data, setData]= useState(initialData) //-
+	const [data, dispatch]= useReducer(reducer, initialData) //+
+	const dispatchAction = () => {
+		return dispatch({ type: 'ACTION_01' })
+	} //+
+
+	return(
+		<ChildrenContext.Provider value={{...data, dispatchAction }}>
+			{children}
+		</ChildrenContext.Provider>
+	) //+'dispatchAction'
+}
+
+const useChildrenContext=() =>{
+	return useContext(ChildrenContext);
+}
+
+export { initialData, ChildrenProvider, useChildrenContext }
+
+ //3rd.in 'index.js'
+import { ChildrenProvider } from './ChildComponent.js'
+
+root.render(
+  <React.StrictMode>
+    <AppProvider>
+      <App />
+    </AppProvider>
+  </React.StrictMode>
+)
+
+ //4th.parent code (in 'ParentComponent.js'):
+import { useChildrenContext } from './ChildrenContext.js'
+
+const ParentComponent = () => {
+ 
+ const { key1, key2 } = useChildrenContext() 
+
+ return(
+		<h1>
+			{key1}
+		</h1>
+	)
+}
+
+export default ParentComponent;
