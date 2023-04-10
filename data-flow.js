@@ -82,9 +82,14 @@ const ParentComponent = () => {
 export default ParentComponent;
 
 //3.𝙘𝙝𝙞𝙡𝙙 𝙩𝙤 𝙥𝙖𝙧𝙚𝙣𝙩 (use 'useReducer' to change and pass part of data):  
-	//1st.+'reducer.js'
+	//+1st.'action.js'(if not, action will not work between files, since it's string instead of a variable???)
+export const ACTION_01 = 'ACTION_01'
+
+	//+2nd.'reducer.js'
+import {ACTION_01} from './action.js'
+
 const reducer = (data, action) => {
-	if (action.type=== 'ACTION_01') => {
+	if (action.type=== ACTION_01) => {
 		return {
 			...data,
 			key1: value3,
@@ -94,9 +99,10 @@ const reducer = (data, action) => {
 }
 export default reducer
 
- //2nd.child code (in 'ChildComponent.js'):
+ //3rd.child code (in 'ChildComponent.js'):
 import React, { useState, useContext, useReducer } from 'react'
 import reducer from './reducer.js'
+import {ACTION_01} from './action.js'
 
 const initialData = {
  key1: value1,
@@ -109,7 +115,7 @@ const ChildrenProvider = ({children}) => {
 	// const [data, setData]= useState(initialData) //-
 	const [data, dispatch]= useReducer(reducer, initialData) //+
 	const dispatchAction = () => {
-		return dispatch({ type: 'ACTION_01' })
+		return dispatch({ type: ACTION_01 })
 	} //+
 
 	return(
@@ -125,7 +131,7 @@ const useChildrenContext=() =>{
 
 export { initialData, ChildrenProvider, useChildrenContext }
 
- //3rd.in 'index.js'
+ //4th.in 'index.js'
 import { ChildrenProvider } from './ChildComponent.js'
 
 root.render(
@@ -136,7 +142,7 @@ root.render(
   </React.StrictMode>
 )
 
- //4th.parent code (in 'ParentComponent.js'):
+ //5th.parent code (in 'ParentComponent.js'):
 import { useChildrenContext } from './ChildrenContext.js'
 
 const ParentComponent = () => {
