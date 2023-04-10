@@ -114,12 +114,12 @@ const ChildrenContext= React.createContext()
 const ChildrenProvider = ({children}) => {
 	// const [data, setData]= useState(initialData) //-
 	const [data, dispatch]= useReducer(reducer, initialData) //+
-	const dispatchAction = () => {
+	const displayAction = () => {
 		return dispatch({ type: ACTION_01 })
 	} //+
 
 	return(
-		<ChildrenContext.Provider value={{...data, dispatchAction }}>
+		<ChildrenContext.Provider value={{...data, displayAction }}>
 			{children}
 		</ChildrenContext.Provider>
 	) //+'dispatchAction'
@@ -147,11 +147,12 @@ import { useChildrenContext } from './ChildrenContext.js'
 
 const ParentComponent = () => {
  
- const { key1, key2 } = useChildrenContext() 
+ const { key1, key2, displayAction } = useChildrenContext() 
 
  return(
 		<h1>
 			{key1}
+			{displayAction()}
 		</h1>
 	)
 }
