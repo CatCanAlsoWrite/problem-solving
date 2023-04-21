@@ -1,0 +1,11 @@
+1.github repository, "settings"→ pull till "Danger Zone", find "Change repository visibility"→ "change to private"
+
+2.gitfront.io→ "get started"→ "add repository"→ fill repository url→ "add"→ "convert to SSH"→ "copy"
+
+3.go back to repository, "settings"→ find "Deploy keys" in the side bar→ "add deploy key"→ name it (eg: "read-only"), paste key in step 2, choose or not choose "allow write access"→ "add key"
+
+4.go back to gitfront page→ "build"→ "view"→ copy website of the new page, send to people needed
+
+---
+ref:
+https://www.youtube.com/watch?v=IejuI40oZ5E
