@@ -101,13 +101,13 @@ export const ACTION_01 = 'ACTION_01'
 import {ACTION_01} from './action.js'
 
 const reducer = (data, action) => {
-if (action.type=== ACTION_01) => {
-return {
-...data,
-key1: value3,
-}
-}
-throw new Error(`Not found action ${action.type}`)
+  if (action.type=== ACTION_01) => {
+    return {
+      ...data,
+      key1: value3,
+    }
+  }
+  throw new Error(`Not found action ${action.type}`)
 }
 export default reducer
 ```
